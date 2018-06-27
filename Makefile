@@ -1,7 +1,7 @@
 TAG = numpy_system_load
 NUM_PROCS ?= $(shell getconf _NPROCESSORS_ONLN)
 NAME ?= $(TAG)
-DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) --privileged $(TAG)
+DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) -e LD_PRELOAD="" --privileged $(TAG)
 DOCKER_EXEC = docker exec -it --privileged $(NAME)
 BASE_IMAGE ?= gcr.io/creator-audio/bionic_sonalytic:master
 
