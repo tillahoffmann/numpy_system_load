@@ -1,14 +1,14 @@
 TAG = numpy_system_load
 NUM_PROCS ?= $(shell getconf _NPROCESSORS_ONLN)
 NAME ?= $(TAG)
-DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) --privileged -v `pwd`:/workspace --user `id -u`:`id -g` $(TAG)
+DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) --privileged -v `pwd`:/workspace $(TAG)
 DOCKER_EXEC = docker exec -it --privileged $(NAME)
-BASE_IMAGE ?= python:3
 
 image :
-	docker build -t $(TAG) --build-arg BASE_IMAGE=$(BASE_IMAGE) .
+	docker build -t $(TAG) .
 
 run/workers :
+	mkdir -p profiles
 	$(DOCKER_RUN) supervisord -c supervisord.conf
 
 run/% :
@@ -19,3 +19,6 @@ exec/strace :
 
 exec/% :
 	$(DOCKER_EXEC) $*
+
+clean :
+	rm -rf profiles

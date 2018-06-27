@@ -1,6 +1,4 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE}
-
+FROM python:3
 WORKDIR /workspace
 
 # Set environment variables to ensure numpy doesn't try to parallelise
