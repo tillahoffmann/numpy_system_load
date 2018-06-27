@@ -1,6 +1,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
+WORKDIR /workspace
+
 # Set environment variables to ensure numpy doesn't try to parallelise
 ENV NUMEXPR_NUM_THREADS=1 \
     OMP_NUM_THREADS=1 \

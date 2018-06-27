@@ -1,7 +1,7 @@
 TAG = numpy_system_load
 NUM_PROCS ?= $(shell getconf _NPROCESSORS_ONLN)
 NAME ?= $(TAG)
-DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) --privileged $(TAG)
+DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) --privileged -v `pwd`:/workspace --user `id -u`:`id -g` $(TAG)
 DOCKER_EXEC = docker exec -it --privileged $(NAME)
 BASE_IMAGE ?= python:3
 
