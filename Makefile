@@ -1,10 +1,9 @@
 TAG = numpy_system_load
 NUM_PROCS ?= $(shell getconf _NPROCESSORS_ONLN)
 NAME ?= $(TAG)
-LD_PRELOAD?=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
-DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) -e LD_PRELOAD=$(LD_PRELOAD) --privileged $(TAG)
+DOCKER_RUN = docker run --rm -it --name=$(NAME) -e NUM_PROCS=$(NUM_PROCS) --privileged $(TAG)
 DOCKER_EXEC = docker exec -it --privileged $(NAME)
-BASE_IMAGE ?= gcr.io/creator-audio/bionic_sonalytic:master
+BASE_IMAGE ?= python:3
 
 image :
 	docker build -t $(TAG) --build-arg BASE_IMAGE=$(BASE_IMAGE) .
